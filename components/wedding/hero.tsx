@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Heart, ChevronDown, PlayCircle, MapPin, Gift } from 'lucide-react'
 
-const SLIDES = ['/wedding/hero-1.png', '/wedding/hero-2.png', '/wedding/hero-3.png']
+const SLIDES = ['/wedding/hero-1.png', '/wedding/hero-2.png', '/wedding/hero-3.png', '/wedding/hero-4.png', '/wedding/hero-5.png', '/wedding/hero-6.png', '/wedding/hero-7.png']
 
 export function Hero() {
   const [index, setIndex] = useState(0)
@@ -33,7 +33,7 @@ export function Hero() {
             <div className="absolute inset-0 animate-kenburns">
               <Image
                 src={SLIDES[index] || '/placeholder.svg'}
-                alt="Ebenezer and Rebeca"
+                alt="Kiran and Prasanna"
                 fill
                 priority
                 sizes="100vw"
@@ -83,7 +83,7 @@ export function Hero() {
           className="mt-2 flex flex-col items-center leading-none"
         >
           <span className="font-script text-6xl text-background sm:text-7xl md:text-8xl">
-            Ebenezer
+            Kiran
           </span>
           <span className="my-1 flex items-center gap-3 text-gold-soft">
             <span className="h-px w-10 bg-gold-soft/60" />
@@ -91,7 +91,7 @@ export function Hero() {
             <span className="h-px w-10 bg-gold-soft/60" />
           </span>
           <span className="font-script text-6xl text-background sm:text-7xl md:text-8xl">
-            Rebeca
+            Prasanna
           </span>
         </motion.h1>
 

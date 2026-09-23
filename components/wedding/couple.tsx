@@ -51,7 +51,7 @@ export function Couple() {
           <PortraitCard
             src="/wedding/gallery-8.png"
             role="The Groom"
-            name="Ebenezer"
+            name="Kiran"
             description="A man of faith and gentle strength, ready to walk hand in hand into a lifetime of love and devotion."
           />
 
@@ -66,7 +66,7 @@ export function Couple() {
           <PortraitCard
             src="/wedding/bride.png"
             role="The Bride"
-            name="Rebeca"
+            name="Prasanna"
             description="Graceful, warm and full of light — a heart devoted to family, faith and the beautiful days ahead."
             delay={0.15}
           />

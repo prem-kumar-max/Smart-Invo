@@ -43,9 +43,9 @@ export function NavBar() {
             scrolled ? 'text-primary' : 'text-background',
           )}
         >
-          <span className="font-script text-2xl leading-none sm:text-3xl">Ebenezer</span>
+          <span className="font-script text-2xl leading-none sm:text-3xl">Kiran</span>
           <Heart className="h-4 w-4 fill-current text-gold" strokeWidth={1} />
-          <span className="font-script text-2xl leading-none sm:text-3xl">Rebeca</span>
+          <span className="font-script text-2xl leading-none sm:text-3xl">Prasanna</span>
         </a>
 
         <ul className="hidden items-center gap-7 lg:flex">

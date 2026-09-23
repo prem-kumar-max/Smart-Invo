@@ -1,226 +1,89 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import styles from './splash-screen.module.css'
 
 export function SplashScreen() {
-  const [isVisible, setIsVisible] = useState(true)
-
-  useEffect(() => {
-    // Auto-dismiss after 3 seconds
-    const dismissTimer = setTimeout(() => {
-      setIsVisible(false)
-    }, 3000)
-
-    return () => {
-      clearTimeout(dismissTimer)
-    }
+  const [phase, setPhase] = useState<'opening' | 'leaving' | 'hidden'>('opening')
+  const dismiss = useCallback(() => {
+    setPhase((current) => current === 'opening' ? 'leaving' : current)
   }, [])
 
-  if (!isVisible) return null
+  useEffect(() => {
+    if (phase === 'hidden') return
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const timer = window.setTimeout(
+      () => phase === 'opening' ? dismiss() : setPhase('hidden'),
+      phase === 'opening' ? (reduced ? 1000 : 3400) : (reduced ? 150 : 900),
+    )
+    return () => window.clearTimeout(timer)
+  }, [phase, dismiss])
+
+  useEffect(() => {
+    if (phase === 'hidden') return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') dismiss()
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [phase, dismiss])
+
+  if (phase === 'hidden') return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white overflow-hidden">
-      {/* Top Left Corner Decoration */}
-      <svg className="absolute top-0 left-0 w-40 h-40 pointer-events-none" viewBox="0 0 120 120" preserveAspectRatio="xMinYMin meet">
-        <g>
-          <path
-            d="M 20 10 Q 50 50 20 90"
-            stroke="#b08d3f"
-            strokeWidth="2"
-            fill="none"
-            style={{
-              animation: 'drawLine 1.5s ease-in-out forwards',
-            }}
-          />
-          <circle cx="20" cy="10" r="3" fill="#b08d3f" style={{
-            animation: 'fadeIn 0.8s ease-out forwards',
-            animationDelay: '0.2s',
-          }} />
-          <circle cx="20" cy="90" r="3" fill="#b08d3f" style={{
-            animation: 'fadeIn 0.8s ease-out forwards',
-            animationDelay: '1.3s',
-          }} />
-        </g>
-      </svg>
+    <div className={styles.splash} data-leaving={phase === 'leaving'}>
+      <div className={`${styles.panel} ${styles.leftPanel}`} aria-hidden="true" />
+      <div className={`${styles.panel} ${styles.rightPanel}`} aria-hidden="true" />
+      <div className={styles.frame} aria-hidden="true" />
+      <p className={styles.topline}>A celebration of love &amp; grace</p>
 
-      {/* Top Right Corner Decoration */}
-      <svg className="absolute top-0 right-0 w-40 h-40 pointer-events-none" viewBox="0 0 120 120" preserveAspectRatio="xMaxYMin meet">
-        <g>
-          <path
-            d="M 100 10 Q 70 50 100 90"
-            stroke="#b08d3f"
-            strokeWidth="2"
-            fill="none"
-            style={{
-              animation: 'drawLine 1.5s ease-in-out forwards',
-            }}
-          />
-          <circle cx="100" cy="10" r="3" fill="#b08d3f" style={{
-            animation: 'fadeIn 0.8s ease-out forwards',
-            animationDelay: '0.2s',
-          }} />
-          <circle cx="100" cy="90" r="3" fill="#b08d3f" style={{
-            animation: 'fadeIn 0.8s ease-out forwards',
-            animationDelay: '1.3s',
-          }} />
-        </g>
-      </svg>
+      <div className={styles.invitation}>
+        <svg className={styles.arch} viewBox="0 0 440 580" fill="none" aria-hidden="true">
+          <path className={styles.archLine} pathLength="1" d="M38 562V226a182 182 0 0 1 364 0v336" />
+          <path className={styles.innerArch} pathLength="1" d="M49 555V226a171 171 0 0 1 342 0v329" />
+          {/* Fixed geometry keeps the server and client renders identical. */}
+          {[false, true].map((mirrored) => (
+            <g key={String(mirrored)} transform={mirrored ? 'translate(440 0) scale(-1 1)' : undefined}>
+              <path className={styles.stem} pathLength="1" d="M48 459C5 394 8 307 45 244C63 213 81 190 104 169" />
+              <g className={styles.leaves}>
+                <path d="M36 434C9 429 0 406 4 389C26 394 40 411 36 434Z" />
+                <path d="M24 399C47 388 54 367 48 353C29 361 19 381 24 399Z" />
+                <path d="M21 365C0 352 0 331 7 316C25 325 29 347 21 365Z" />
+                <path d="M26 329C48 322 60 303 57 285C36 291 26 308 26 329Z" />
+                <path d="M38 295C19 281 23 258 33 245C49 260 49 280 38 295Z" />
+                <path d="M53 263C75 260 89 245 90 227C67 228 55 244 53 263Z" />
+                <path d="M73 222C61 204 69 185 83 176C91 194 86 213 73 222Z" />
+                <path d="M88 202C107 203 122 191 126 176C106 172 92 186 88 202Z" />
+              </g>
+            </g>
+          ))}
+        </svg>
 
-      {/* Bottom Left Corner Decoration */}
-      <svg className="absolute bottom-0 left-0 w-40 h-40 pointer-events-none" viewBox="0 0 120 120" preserveAspectRatio="xMinYMax meet">
-        <g>
-          <path
-            d="M 20 110 Q 50 70 20 30"
-            stroke="#b08d3f"
-            strokeWidth="2"
-            fill="none"
-            style={{
-              animation: 'drawLine 1.5s ease-in-out forwards',
-              animationDelay: '0.1s',
-            }}
-          />
-          <circle cx="20" cy="110" r="3" fill="#b08d3f" style={{
-            animation: 'fadeIn 0.8s ease-out forwards',
-            animationDelay: '0.3s',
-          }} />
-          <circle cx="20" cy="30" r="3" fill="#b08d3f" style={{
-            animation: 'fadeIn 0.8s ease-out forwards',
-            animationDelay: '1.4s',
-          }} />
-        </g>
-      </svg>
-
-      {/* Bottom Right Corner Decoration */}
-      <svg className="absolute bottom-0 right-0 w-40 h-40 pointer-events-none" viewBox="0 0 120 120" preserveAspectRatio="xMaxYMax meet">
-        <g>
-          <path
-            d="M 100 110 Q 70 70 100 30"
-            stroke="#b08d3f"
-            strokeWidth="2"
-            fill="none"
-            style={{
-              animation: 'drawLine 1.5s ease-in-out forwards',
-              animationDelay: '0.1s',
-            }}
-          />
-          <circle cx="100" cy="110" r="3" fill="#b08d3f" style={{
-            animation: 'fadeIn 0.8s ease-out forwards',
-            animationDelay: '0.3s',
-          }} />
-          <circle cx="100" cy="30" r="3" fill="#b08d3f" style={{
-            animation: 'fadeIn 0.8s ease-out forwards',
-            animationDelay: '1.4s',
-          }} />
-        </g>
-      </svg>
-
-      {/* Center Content */}
-      <div className="relative z-10 text-center flex flex-col items-center justify-center px-6">
-        {/* Ebenezer */}
-        <h1
-          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground"
-          style={{
-            animation: 'fadeInDown 0.8s ease-out forwards',
-            fontWeight: 300,
-            letterSpacing: '-0.02em',
-            marginBottom: '0.5rem',
-          }}
-        >
-          Ebenezer
-        </h1>
-
-        {/* Heart */}
-        <div
-          style={{
-            animation: 'pulse 2s ease-in-out 0.5s infinite, fadeIn 0.6s ease-out forwards',
-            marginY: '1rem',
-            fontSize: '3rem',
-          }}
-        >
-          💛
+        <div className={styles.content}>
+          <div className={styles.seal} aria-hidden="true">
+            <span className={styles.sealInitial}>K</span>
+            <span className={styles.sealDivider} />
+            <span className={styles.sealInitial}>P</span>
+          </div>
+          <p className={styles.eyebrow}>Together, by His grace</p>
+          <h1 className={styles.names}>
+            <span className={styles.firstName}>Kiran</span>
+            <span className={styles.ampersand}>&amp;</span>
+            <span className={styles.secondName}>Prasanna</span>
+          </h1>
+          <div className={styles.ornament} aria-hidden="true"><span />✦<span /></div>
+          <p className={styles.date}>02 <span>/</span> 10 <span>/</span> 2026</p>
+          <p className={styles.caption}>The beginning of our forever</p>
         </div>
-
-        {/* Rebeca */}
-        <h1
-          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground"
-          style={{
-            animation: 'fadeInUp 0.8s ease-out forwards',
-            animationDelay: '0.3s',
-            fontWeight: 300,
-            letterSpacing: '-0.02em',
-            marginTop: '0.5rem',
-          }}
-        >
-          Rebeca
-        </h1>
-
-        {/* Loading Text */}
-        <p
-          className="mt-12 text-xs sm:text-sm md:text-base text-muted-foreground font-body tracking-[0.3em]"
-          style={{
-            animation: 'fadeIn 0.8s ease-out forwards',
-            animationDelay: '0.8s',
-          }}
-        >
-          LOADING INVITATION...
-        </p>
       </div>
 
-      {/* CSS Animations */}
-      <style jsx>{`
-        @keyframes drawLine {
-          from {
-            stroke-dasharray: 150;
-            stroke-dashoffset: 150;
-          }
-          to {
-            stroke-dasharray: 150;
-            stroke-dashoffset: 0;
-          }
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fadeInDown {
-          from {
-            opacity: 0;
-            transform: translateY(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes pulse {
-          0%, 100% {
-            transform: scale(1);
-            opacity: 1;
-          }
-          50% {
-            transform: scale(1.15);
-            opacity: 0.7;
-          }
-        }
-      `}</style>
+      <div className={styles.bottomline}>
+        <span className={styles.progress} aria-hidden="true"><span /></span>
+        <p>Your invitation awaits</p>
+      </div>
+      <button type="button" className={styles.skip} onClick={dismiss} disabled={phase === 'leaving'}>
+        Open invitation <span aria-hidden="true">↗</span>
+      </button>
     </div>
   )
 }

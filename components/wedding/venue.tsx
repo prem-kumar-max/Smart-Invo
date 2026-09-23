@@ -3,10 +3,11 @@
 import { MapPin, Navigation, ExternalLink } from 'lucide-react'
 import { Reveal, SectionTitle } from './ui'
 
-const QUERY = encodeURIComponent('Ashok Function Hall, Nunna, Vijayawada')
-const MAP_EMBED = `https://www.google.com/maps?q=${QUERY}&output=embed`
-const MAP_LINK = `https://www.google.com/maps/search/?api=1&query=${QUERY}`
-const DIRECTIONS_LINK = `https://www.google.com/maps/dir/?api=1&destination=${QUERY}`
+// Exact venue coordinates from the shared Google Maps place link.
+const COORDINATES = '16.5416375,80.6404531'
+const MAP_EMBED = `https://www.google.com/maps?q=${COORDINATES}&z=17&output=embed`
+const MAP_LINK = 'https://www.google.com/maps/place/Shadikhana+function+hall/@16.5416375,80.6404531,630m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3a35e5eecfd89b77:0x110145e234b535fb!8m2!3d16.5416375!4d80.6404531!16s%2Fg%2F11rn0gq3th'
+const DIRECTIONS_LINK = `https://www.google.com/maps/dir/?api=1&destination=${COORDINATES}`
 
 export function Venue() {
   return (
@@ -22,15 +23,15 @@ export function Venue() {
                 <MapPin className="h-6 w-6" strokeWidth={1.5} />
               </span>
               <h3 className="mt-6 font-script text-4xl text-primary sm:text-5xl">
-                Ashok Function Hall
+                Shadikhana Function Hall
               </h3>
               <p className="mt-4 font-body text-lg leading-relaxed text-muted-foreground">
-                Nunna, Vijayawada
+                Ajit Singh Nagar, Vijayawada
                 <br />
                 Andhra Pradesh, India
               </p>
               <p className="mt-6 font-body text-lg italic text-muted-foreground">
-                Thursday, 06 August 2026 &middot; 5:00 PM onwards
+                Friday, 2 October 2026 &middot; 10:45 AM onwards
               </p>
 
               <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
@@ -56,7 +57,7 @@ export function Venue() {
             {/* Map */}
             <div className="relative min-h-[320px] w-full border-t border-border lg:border-l lg:border-t-0">
               <iframe
-                title="Map to Ashok Function Hall, Nunna, Vijayawada"
+                title="Map to Shadikhana Function Hall, Ajit Singh Nagar, Vijayawada"
                 src={MAP_EMBED}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

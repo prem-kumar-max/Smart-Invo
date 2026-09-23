@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Reveal, FloralCorner } from './ui'
 
-// 06 August 2026, 5:00 PM IST (UTC+5:30) => 11:30 UTC
-const TARGET = new Date('2026-08-06T11:30:00Z').getTime()
+// Friday, 2 October 2026, 10:45 AM IST (UTC+5:30).
+const TARGET = new Date('2026-10-02T10:45:00+05:30').getTime()
 
 function getRemaining() {
   const diff = Math.max(0, TARGET - Date.now())
@@ -67,7 +67,7 @@ export function Countdown() {
             <Unit value={time?.seconds ?? null} label="Seconds" />
           </div>
           <p className="mt-10 font-body text-lg italic text-muted-foreground">
-            Thursday, 06 August 2026 &middot; 5:00 PM IST
+            Friday, 2 October 2026 &middot; 10:45 AM IST onwards
           </p>
         </Reveal>
       </div>

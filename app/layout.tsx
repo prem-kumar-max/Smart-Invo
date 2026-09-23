@@ -26,9 +26,22 @@ const greatVibes = Great_Vibes({
 })
 
 export const metadata: Metadata = {
-  title: 'Ebenezer & Rebeca — Wedding Invitation',
+  title: 'Prasanna & Kiran',
+  applicationName: 'Prasanna & Kiran',
   description:
-    'Together with our families, we joyfully invite you to celebrate the Holy Matrimony of Ebenezer & Rebeca — 06 August 2026, Ashok Function Hall, Vijayawada.',
+    'Together with our families, we joyfully invite you to celebrate the Holy Matrimony of Prasanna & Kiran — Friday, 2 October 2026, 10:45 AM IST onwards, Shadikhana Function Hall, Ajit Singh Nagar, Vijayawada.',
+  icons: {
+    icon: [
+      { url: '/app-icons/prasanna-kiran-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/app-icons/prasanna-kiran-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: { url: '/app-icons/prasanna-kiran-180.png', sizes: '180x180', type: 'image/png' },
+  },
+  appleWebApp: {
+    capable: true,
+    title: 'Prasanna & Kiran',
+    statusBarStyle: 'default',
+  },
   generator: 'v0.app',
 }
 
@@ -47,6 +60,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      // Extensions can inject crxlauncher attributes before React hydrates.
+      // Suppress warnings on this element only; descendants remain checked.
+      suppressHydrationWarning
       className={`${playfair.variable} ${cormorant.variable} ${greatVibes.variable} bg-background`}
     >
       <body className="antialiased">
