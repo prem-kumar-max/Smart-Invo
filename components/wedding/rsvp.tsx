@@ -70,18 +70,18 @@ const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
   try {
     // Email to Admin
     await emailjs.send(
-      'service_mqe0f4m',
-      'template_oz37ezy',
+      'service_q98ktcq',
+      'template_3070k1t',
       templateParams,
-      'YZKhU8K0B8Nd_IUhA'
+      '6pcRMDv0uhBMAWhfn'
     )
 
     // Auto Reply to Guest
     await emailjs.send(
-      'service_mqe0f4m',
-      'template_an2ibya',
+      'service_q98ktcq',
+      'template_3070k1t',
       templateParams,
-      'YZKhU8K0B8Nd_IUhA'
+      '6pcRMDv0uhBMAWhfn'
     )
 
     setSubmitted(true)
