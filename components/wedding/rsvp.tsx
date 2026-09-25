@@ -71,7 +71,7 @@ const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     // Email to Admin
     await emailjs.send(
       'service_q98ktcq',
-      'template_3070k1t',
+      'template_ddbeukh',
       templateParams,
       '6pcRMDv0uhBMAWhfn'
     )
