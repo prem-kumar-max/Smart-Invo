@@ -38,11 +38,11 @@ const PARENTS = [
     mother: 'Mrs. Sarojini Baby',
   },
   {
-    label: "Groom's Parents",
-    image: '/wedding/groom-parents.webp',
-    alt: "Family portrait shared by the groom's parents",
-    father: 'Mr. Sanangula Raju',
-    mother: 'Mrs. Karuna',
+    label: "With the blessings of our beloved grandparents",
+    image: '/wedding/Grand parents.png',
+    alt: "With the blessings of our beloved grandparents",
+    father: 'Late Sri Vemula Kotaiah',
+    mother: 'Smt. Vemula Mariyamma (Mallamma)',
   },
 ]
 
